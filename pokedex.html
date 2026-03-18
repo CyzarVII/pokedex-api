@@ -1,28 +1,167 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pokedex API</title>
-
-    <link rel="stylesheet" href ="pokedex.css">
-    <script src="pokedex.js"></script>
+    <title>Pokédex</title>
+    <link rel="stylesheet" href="pokedex.css">
 </head>
-<body>
-    <div id="content">
-        <!-- Left side will be displaying the pokemon's information -->
-         <div id="pokemon-info">
-            <img id="pokemon-img" src ="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png">
-            <div id="pokemon-types">
-                <span class="type-box grass">Grass</span><span class="type-box poison">Poison</span>
-            </div>
-            <div id="pokemon-description"></div>
-         </div>
-         <!-- Right side, display pokemon list which is grabbing data from API -->
-          <div id="pokemon-list">
 
-          </div>
+<body>
+
+    <div id="pokedex">
+
+        <!-- LEFT PANEL -->
+        <div id="left-panel">
+            <div id="top-lights">
+                <div id="big-light"></div>
+                <div class="small-light red"></div>
+                <div class="small-light yellow"></div>
+                <div class="small-light green"></div>
+            </div>
+
+            <div id="left-screen-container">
+                <div id="screen-inner">
+                    <div id="detail-view">
+                        <div id="detail-placeholder">
+                            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/0.png"
+                                id="placeholder-img" alt="">
+                            <p>Select a Pokémon</p>
+                        </div>
+
+                        <div id="detail-content" class="hidden">
+                            <div id="detail-top">
+                                <div id="detail-img-wrap">
+                                    <img id="detail-img" src="" alt="">
+                                </div>
+                                <div id="detail-main-info">
+                                    <div id="detail-number"></div>
+                                    <div id="detail-name"></div>
+                                    <div id="detail-type-badges"></div>
+                                    <div id="detail-info-grid">
+                                        <div class="info-cell"><span class="info-label">Height</span><span
+                                                id="detail-height"></span></div>
+                                        <div class="info-cell"><span class="info-label">Category</span><span
+                                                id="detail-category"></span></div>
+                                        <div class="info-cell"><span class="info-label">Weight</span><span
+                                                id="detail-weight"></span></div>
+                                        <div class="info-cell"><span class="info-label">Abilities</span><span
+                                                id="detail-abilities"></span></div>
+                                        <div class="info-cell"><span class="info-label">Gender</span><span
+                                                id="detail-gender"></span></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="detail-description-box">
+                                <span id="detail-description"></span><span id="type-cursor">|</span>
+                            </div>
+
+                            <div id="detail-stats-section">
+                                <div id="stats-bars">
+                                    <div class="stat-row"><span class="stat-label">HP</span>
+                                        <div class="stat-bar-bg">
+                                            <div class="stat-bar hp-bar" id="bar-hp"></div>
+                                        </div><span class="stat-val" id="val-hp"></span>
+                                    </div>
+                                    <div class="stat-row"><span class="stat-label">Attack</span>
+                                        <div class="stat-bar-bg">
+                                            <div class="stat-bar atk-bar" id="bar-atk"></div>
+                                        </div><span class="stat-val" id="val-atk"></span>
+                                    </div>
+                                    <div class="stat-row"><span class="stat-label">Defense</span>
+                                        <div class="stat-bar-bg">
+                                            <div class="stat-bar def-bar" id="bar-def"></div>
+                                        </div><span class="stat-val" id="val-def"></span>
+                                    </div>
+                                    <div class="stat-row"><span class="stat-label">Sp.Atk</span>
+                                        <div class="stat-bar-bg">
+                                            <div class="stat-bar spa-bar" id="bar-spa"></div>
+                                        </div><span class="stat-val" id="val-spa"></span>
+                                    </div>
+                                    <div class="stat-row"><span class="stat-label">Sp.Def</span>
+                                        <div class="stat-bar-bg">
+                                            <div class="stat-bar spd-bar" id="bar-spd"></div>
+                                        </div><span class="stat-val" id="val-spd"></span>
+                                    </div>
+                                    <div class="stat-row"><span class="stat-label">Speed</span>
+                                        <div class="stat-bar-bg">
+                                            <div class="stat-bar spe-bar" id="bar-spe"></div>
+                                        </div><span class="stat-val" id="val-spe"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="detail-weaknesses-section">
+                                <div class="section-title">Weaknesses</div>
+                                <div id="detail-weaknesses"></div>
+                            </div>
+
+                            <div id="detail-evolution-section">
+                                <div class="section-title">Evolutions</div>
+                                <div id="detail-evolution-chain"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="left-bottom-decor">
+                <div id="dpad">
+                    <div class="dpad-h"></div>
+                    <div class="dpad-v"></div>
+                </div>
+                <div id="bottom-buttons">
+                    <div class="btn-round"></div>
+                    <div class="btn-round"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- HINGE -->
+        <div id="hinge"></div>
+
+        <!-- RIGHT PANEL -->
+        <div id="right-panel">
+            <div id="right-screen-container">
+                <div id="gen-tabs">
+                    <button class="gen-tab active" data-start="1" data-end="151">Gen I</button>
+                    <button class="gen-tab" data-start="152" data-end="251">Gen II</button>
+                    <button class="gen-tab" data-start="252" data-end="386">Gen III</button>
+                    <button class="gen-tab" data-start="387" data-end="493">Gen IV</button>
+                    <button class="gen-tab" data-start="494" data-end="649">Gen V</button>
+                    <button class="gen-tab" data-start="650" data-end="721">Gen VI</button>
+                    <button class="gen-tab" data-start="722" data-end="809">Gen VII</button>
+                    <button class="gen-tab" data-start="810" data-end="905">Gen VIII</button>
+                    <button class="gen-tab" data-start="906" data-end="1025">Gen IX</button>
+                </div>
+
+                <div id="pokemon-grid"></div>
+
+                <div id="pagination-wrap">
+                    <div id="page-dpad">
+                        <button id="prev-page-btn" class="dpad-page-btn dpad-page-left">◀</button>
+                        <span id="page-indicator">1 / 1</span>
+                        <button id="next-page-btn" class="dpad-page-btn dpad-page-right">▶</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="right-bottom-decor">
+                <div id="speaker-grille">
+                    <div class="speaker-line"></div>
+                    <div class="speaker-line"></div>
+                    <div class="speaker-line"></div>
+                    <div class="speaker-line"></div>
+                    <div class="speaker-line"></div>
+                </div>
+            </div>
+        </div>
 
     </div>
+
+    <script src="pokedex.js"></script>
 </body>
+
 </html>
